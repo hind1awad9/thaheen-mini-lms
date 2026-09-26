@@ -1,0 +1,76 @@
+@if (coursesState$ | async; as state) {
+  @if (state.status === 'loading') {
+    <div class="page-loading">
+      <div class="page-loading__spinner"></div>
+      <p>جاري تحميل الدورات...</p>
+    </div>
+  }
+
+  @if (state.status === 'error') {
+    <div class="page-error">
+      <div class="page-error__icon">!</div>
+
+      <h2>تعذر تحميل الدورات</h2>
+
+      <p>حدث خطأ أثناء تحميل بيانات الدورات. يرجى المحاولة مرة أخرى.</p>
+    </div>
+  }
+
+  @if (state.status === 'success') {
+    <main class="courses-page">
+      <header class="courses-header">
+        <div>
+
+          <h1>دوراتي</h1>
+
+          <p>تابع دروسك واستكمل تقدمك في الدورات المسجلة.</p>
+        </div>
+
+        <div class="courses-header__count">{{ state.courses.length }} دورات</div>
+      </header>
+
+      @if (continueWatching$ | async; as continueWatching) {
+        <section class="continue-watching">
+          <div class="continue-watching__content">
+            <span class="continue-watching__label"> استكمال المشاهدة </span>
+
+            <h2>{{ continueWatching.lesson.title }}</h2>
+
+            <p>{{ continueWatching.course.title }}</p>
+          </div>
+
+          <a
+            class="continue-watching__button"
+            [routerLink]="['/courses', continueWatching.course.id, 'lessons', continueWatching.lesson.id]"
+          >
+            متابعة الدرس
+          </a>
+        </section>
+      }
+
+      <div class="courses-search">
+        <span class="courses-search__icon">⌕</span>
+
+        <input
+          type="search"
+          placeholder="ابحث باسم الدورة أو المحاضر..."
+          [value]="searchTerm()"
+          (input)="onSearch($event)"
+          aria-label="البحث في الدورات"
+        />
+      </div>
+
+      <div class="courses-grid">
+        @for (course of filterCourses(state.courses); track course.id) {
+          <app-course-card [course]="course" />
+        } @empty {
+          <div class="search-empty">
+            <span>⌕</span>
+            <h2>لا توجد نتائج</h2>
+            <p>جرّب البحث باسم دورة أو محاضر آخر.</p>
+          </div>
+        }
+      </div>
+    </main>
+  }
+}

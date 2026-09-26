@@ -1,0 +1,69 @@
+<div
+  #player
+  class="video-player"
+>
+  <video
+    #video
+    class="video-player__video"
+    [src]="videoSrc()"
+    (loadedmetadata)="onLoadedMetadata(video)"
+    (timeupdate)="onTimeUpdate(video)"
+    (play)="isPlaying.set(true)"
+    (pause)="isPlaying.set(false)"
+    (ended)="onEnded(video)"
+    (error)="onVideoError()"
+  >
+    متصفحك لا يدعم تشغيل الفيديو.
+  </video>
+
+  @if (hasError()) {
+    <div class="video-player__error">
+      <strong>تعذر تشغيل الفيديو</strong>
+      <span>تحقق من ملف الفيديو وحاول مرة أخرى.</span>
+    </div>
+  }
+
+  @if (!hasError()) {
+    <div class="video-player__controls">
+      <input
+        type="range"
+        min="0"
+        [max]="duration()"
+        [value]="currentTime()"
+        (input)="seek(video, $event)"
+        aria-label="موضع الفيديو"
+      />
+
+      <span>
+        {{ formatTime(currentTime()) }}
+        /
+        {{ formatTime(duration()) }}
+      </span>
+
+      <button
+        type="button"
+        (click)="togglePlay(video)"
+      >
+        {{ isPlaying() ? 'إيقاف مؤقت' : 'تشغيل' }}
+      </button>
+
+      <select
+        [value]="playbackSpeed()"
+        (change)="changePlaybackSpeed(video, $event)"
+        aria-label="سرعة التشغيل"
+      >
+        <option value="1">1x</option>
+        <option value="1.25">1.25x</option>
+        <option value="1.5">1.5x</option>
+        <option value="2">2x</option>
+      </select>
+
+      <button
+        type="button"
+        (click)="toggleFullscreen(player)"
+      >
+        ملء الشاشة
+      </button>
+    </div>
+  }
+</div>

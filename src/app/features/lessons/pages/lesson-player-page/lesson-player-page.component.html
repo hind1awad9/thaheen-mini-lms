@@ -1,0 +1,48 @@
+@if (lessonContext$ | async; as context) {
+  <main class="lesson-page">
+    <div class="lesson-page__container">
+      <header class="lesson-header">
+        <span class="lesson-header__label">
+          {{ context.course.title }}
+        </span>
+
+        <h1>{{ context.lesson.title }}</h1>
+      </header>
+
+      <app-video-player
+        [videoSrc]="context.lesson.video"
+        [startPositionSec]="progressService.getLessonProgress(context.lesson.id)?.positionSec ?? 0"
+        (progressChange)="onPositionChange(context.lesson.id, $event.positionSec, $event.durationSec)"
+      />
+
+      <div class="lesson-actions">
+        <a
+          class="lesson-actions__back"
+          [routerLink]="['/courses', context.course.id]"
+        >
+          العودة إلى الدورة
+        </a>
+
+        @if (context.nextLesson) {
+          @if (progressService.isLessonUnlocked(context.nextLesson.id, getOrderedLessonIds(context.course))) {
+            <a
+              class="lesson-actions__next"
+              [routerLink]="['/courses', context.course.id, 'lessons', context.nextLesson.id]"
+            >
+              الدرس التالي ←
+            </a>
+          } @else {
+            <span class="lesson-actions__next lesson-actions__next--disabled"> 🔒 أكمل الدرس للمتابعة </span>
+          }
+        }
+      </div>
+    </div>
+  </main>
+} @else {
+  <div class="lesson-not-found">
+    <h1>الدرس غير موجود</h1>
+    <p>تعذر العثور على الدرس المطلوب.</p>
+
+    <a routerLink="/courses"> العودة إلى الدورات </a>
+  </div>
+}

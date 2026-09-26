@@ -1,0 +1,36 @@
+<a
+  class="course-card"
+  [routerLink]="['/courses', course().id]"
+>
+  <img
+    class="course-card__thumbnail"
+    [src]="course().thumbnail"
+    [alt]="course().title"
+  />
+
+  <div class="course-card__content">
+    <h2>{{ course().title }}</h2>
+
+    <p class="course-card__instructor">
+      {{ course().instructor }}
+    </p>
+
+    <div class="course-card__meta">
+      <span>{{ lessonCount() }} دروس</span>
+    </div>
+
+    <div class="course-card__progress">
+      <div class="course-card__progress-header">
+        <span>التقدم</span>
+        <strong>{{ progressPercentage() }}%</strong>
+      </div>
+
+      <div class="course-card__progress-track">
+        <div
+          class="course-card__progress-value"
+          [style.width.%]="progressPercentage()"
+        ></div>
+      </div>
+    </div>
+  </div>
+</a>

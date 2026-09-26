@@ -1,0 +1,108 @@
+@if (course$ | async; as course) {
+  <main class="course-details">
+    <a
+      class="back-link"
+      routerLink="/courses"
+    >
+      → العودة إلى الدورات
+    </a>
+
+    @if (lockedMessage) {
+      <div class="locked-message">
+        <span>🔒</span>
+
+        <div>
+          <strong>هذا الدرس غير متاح بعد</strong>
+          <p>أكمل الدرس السابق أولاً للمتابعة.</p>
+        </div>
+      </div>
+    }
+
+    <header class="course-header">
+      <span class="course-header__label"> الدورة التدريبية </span>
+
+      <h1>{{ course.title }}</h1>
+
+      <p>
+        مقدمة بواسطة
+        <strong>{{ course.instructor }}</strong>
+      </p>
+    </header>
+
+    @if (hasLessons(course)) {
+      <div class="course-content">
+        @for (section of course.sections; track section.id; let sectionIndex = $index) {
+          <section class="course-section">
+            <header class="course-section__header">
+              <div>
+                <span>القسم {{ sectionIndex + 1 }}</span>
+                <h2>{{ section.title }}</h2>
+              </div>
+
+              <span class="course-section__count"> {{ section.lessons.length }} دروس </span>
+            </header>
+
+            <div class="lessons-list">
+              @for (lesson of section.lessons; track lesson.id; let lessonIndex = $index) {
+                @let isUnlocked = progressService.isLessonUnlocked(lesson.id, getOrderedLessonIds(course));
+
+                <div
+                  class="lesson-item"
+                  [class.lesson-item--clickable]="isUnlocked"
+                  [class.lesson-item--locked]="!isUnlocked"
+                  [routerLink]="isUnlocked ? ['/courses', course.id, 'lessons', lesson.id] : null"
+                >
+                  <div class="lesson-item__number">
+                    {{ lessonIndex + 1 }}
+                  </div>
+
+                  <div class="lesson-item__content">
+                    <span class="lesson-item__title">
+                      {{ lesson.title }}
+                    </span>
+
+                    <span class="lesson-item__duration"> {{ lesson.durationSec }} ثانية </span>
+                  </div>
+
+                  <div class="lesson-item__status">
+                    @if (!isUnlocked) {
+                      <span class="status status--locked"> 🔒 مقفل </span>
+                    } @else {
+                      @switch (progressService.getLessonStatus(lesson.id)) {
+                        @case (LessonStatus.Completed) {
+                          <span class="status status--completed"> ✓ مكتمل </span>
+                        }
+
+                        @case (LessonStatus.InProgress) {
+                          <span class="status status--progress"> قيد المشاهدة </span>
+                        }
+
+                        @case (LessonStatus.NotStarted) {
+                          <span class="status status--new"> لم يبدأ </span>
+                        }
+                      }
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <div class="empty-state__icon">📚</div>
+
+        <h2>لا توجد دروس بعد</h2>
+
+        <p>لم تتم إضافة دروس إلى هذه الدورة حتى الآن.</p>
+      </div>
+    }
+  </main>
+} @else {
+  <div class="not-found">
+    <h1>لم يتم العثور على الدورة</h1>
+
+    <a routerLink="/courses"> العودة إلى الدورات </a>
+  </div>
+}

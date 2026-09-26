@@ -1,0 +1,35 @@
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  background: #fff;
+  border-bottom: 1px solid #e2e8f0;
+
+  &__container {
+    width: min(100% - 32px, 1200px);
+    margin-inline: auto;
+    padding-block: 16px;
+  }
+
+  &__brand {
+    color: #4f46e5;
+
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    &__container {
+      width: min(100% - 24px, 1200px);
+      padding-block: 14px;
+    }
+
+    &__brand {
+      font-size: 18px;
+    }
+  }
+}

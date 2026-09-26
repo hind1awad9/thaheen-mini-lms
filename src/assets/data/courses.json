@@ -1,0 +1,90 @@
+[
+  {
+    "id": "anatomy-basics",
+    "title": "أساسيات التشريح",
+    "instructor": "د. أحمد محمد",
+    "thumbnail": "assets/images/anatomy.jpg",
+    "sections": [
+      {
+        "id": "anatomy-section-1",
+        "title": "مقدمة في التشريح",
+        "lessons": [
+          {
+            "id": "anatomy-lesson-1",
+            "title": "مقدمة في علم التشريح",
+            "durationSec": 60,
+            "video": "assets/videos/lesson1.mp4"
+          },
+          {
+            "id": "anatomy-lesson-2",
+            "title": "الجهاز الهيكلي",
+            "durationSec": 60,
+            "video": "assets/videos/lesson2.mp4"
+          }
+        ]
+      },
+      {
+        "id": "anatomy-section-2",
+        "title": "أجهزة جسم الإنسان",
+        "lessons": [
+          {
+            "id": "anatomy-lesson-3",
+            "title": "الجهاز العضلي",
+            "durationSec": 60,
+            "video": "assets/videos/lesson3.mp4"
+          },
+          {
+            "id": "anatomy-lesson-4",
+            "title": "الجهاز العصبي",
+            "durationSec": 60,
+            "video": "assets/videos/lesson1.mp4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "physiology-basics",
+    "title": "أساسيات علم وظائف الأعضاء",
+    "instructor": "د. سارة علي",
+    "thumbnail": "assets/images/physiology.jpg",
+    "sections": [
+      {
+        "id": "physiology-section-1",
+        "title": "مقدمة في وظائف الأعضاء",
+        "lessons": [
+          {
+            "id": "physiology-lesson-1",
+            "title": "مقدمة في علم وظائف الأعضاء",
+            "durationSec": 60,
+            "video": "assets/videos/lesson2.mp4"
+          },
+          {
+            "id": "physiology-lesson-2",
+            "title": "وظائف الخلايا",
+            "durationSec": 60,
+            "video": "assets/videos/lesson3.mp4"
+          }
+        ]
+      },
+      {
+        "id": "physiology-section-2",
+        "title": "أجهزة الجسم",
+        "lessons": [
+          {
+            "id": "physiology-lesson-3",
+            "title": "وظائف الجهاز التنفسي",
+            "durationSec": 60,
+            "video": "assets/videos/lesson1.mp4"
+          },
+          {
+            "id": "physiology-lesson-4",
+            "title": "وظائف الجهاز الدوري",
+            "durationSec": 60,
+            "video": "assets/videos/lesson2.mp4"
+          }
+        ]
+      }
+    ]
+  }
+]
