@@ -242,5 +242,23 @@ The application uses bundled static JSON as required by the task. In a productio
 ### Scope
 
 The implementation prioritizes the required learning journey, clean state handling, routing, persistence, tests, responsive RTL UX, and maintainable TypeScript over adding a large number of optional features.
+---
 
+## What I Would Do With More Time
 
+With additional time, I would consider:
+
+- Synchronizing progress with a backend account
+- Tracking actual watched video ranges
+- Adding per-lesson notes
+- Adding dark mode
+- Adding Arabic/English language switching
+- Expanding accessibility and keyboard navigation
+- Adding more comprehensive component and route-guard tests
+- Adding end-to-end tests for the complete learning journey
+
+---
+
+## Time Spent
+
+Approximately 4–6 hours of focused implementation, in line with the requested time box.
